@@ -1,3 +1,4 @@
+# here common variables are set
 
 ROOT_PATH = '/Users/xirong/github/tagrel'
 ROOT_PATH = '/Users/xirong/VisualSearch'
