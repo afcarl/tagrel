@@ -4,9 +4,7 @@ import sys, os, time
 from common import ROOT_PATH, FEATURE_TO_DIM, COLLECTION_TO_SIZE
 from util import printStatus
 from textstore import RecordStore
-
-sys.path.append('/Users/xirong/github/simpleknn')
-import simpleknn
+from simpleknn import simpleknn
 
 
 INFO = 'tagrel.tagrel'

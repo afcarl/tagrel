@@ -6,9 +6,7 @@ from util import checkToSkip,niceNumber,printStatus,makedirsforfile,readImageSet
 from common import ROOT_PATH, FEATURE_TO_DIM
 from tagrel import TagrelLearner
 from textstore import RecordStore
-
-sys.path.append('/Users/xirong/github/simpleknn')
-from bigfile import BigFile
+from simpleknn.bigfile import BigFile
 
 
 INFO = 'tagrel.dotagrel'
