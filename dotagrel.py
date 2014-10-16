@@ -55,6 +55,7 @@ def process(options, trainCollection, feature, testCollection):
     printStatus(INFO, "%d images have been done already, and they will be ignored" % len(doneset))
         
     test_imset = readImageSet(testCollection, testset, rootpath)
+    test_imset = [x for x in test_imset if x not in doneset]
     test_imset = [test_imset[i] for i in range(len(test_imset)) if (i%numjobs+1) == job]
     test_featuredir = os.path.join(rootpath, testCollection, 'FeatureData', feature)
     test_featurefile = BigFile(test_featuredir, dim)
