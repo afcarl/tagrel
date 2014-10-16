@@ -84,7 +84,7 @@ def process(options, trainCollection, feature, testCollection):
         renamed, vectors = test_featurefile.read(test_imset[start:end])
         read_time += time.time() - s_time
         nr_images = len(renamed)
-        assert(len(test_imset[start:end]) == nr_images)
+        #assert(len(test_imset[start:end]) == nr_images) # some images may have no visual features available
 
         s_time = time.time()
         output = [None] * nr_images
