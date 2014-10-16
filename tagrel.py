@@ -16,7 +16,7 @@ class TagrelLearner:
     def __init__(self, collection, feature, distance, tpp='lemm', rootpath=ROOT_PATH):
         id_file = os.path.join(rootpath, collection, "FeatureData", feature, "id.txt")
         feature_file = os.path.join(rootpath, collection, "FeatureData", feature, "feature.bin")
-        nr_of_images = len(open(idfile).readline().strip().split())
+        nr_of_images = len(open(id_file).readline().strip().split())
         self.searcher = simpleknn.load_model(feature_file, FEATURE_TO_DIM[feature], nr_of_images, id_file)
         self.searcher.set_distance(distance)
 
