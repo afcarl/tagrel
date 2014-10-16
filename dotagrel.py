@@ -42,7 +42,7 @@ def process(options, trainCollection, feature, testCollection):
     resultfile = os.path.join(rootpath, testCollection,resultName,testset,trainCollection,"%s,%s,%d,%s" % (feature,nnName,k,tpp), "id.tagvotes.txt")
     
     if numjobs>1:
-        resultfile += "%d.%d" % (numjobs,job)
+        resultfile += ".%d.%d" % (numjobs,job)
 
     if checkToSkip(resultfile, overwrite):
         return 0
