@@ -37,9 +37,12 @@ def process(options, tagfile, tpp):
             newtags = []
             for tag in elems[2:]:
                 try:
-                    newtags.append( func(worker,tag.lower()) )
+                    newtag = func(worker,tag.lower())
                 except:
-                    newtags.append(tag.decode('utf-8'))
+                    newtag = tag
+                
+                newtags.append(newtag.decode('utf-8'))
+
             newline = "\t".join([elems[0], elems[1], " ".join(newtags)])
             fw.write('%s\n' % newline)
             obtained += 1
