@@ -7,6 +7,7 @@ class RecordStore:
         self.tag2freq = {}
 
         for line in open(tagfile): #.readlines():
+            print line.strip()
             [photoid, userid, tags] = line.strip().split('\t')
             self.mapping[photoid] = (userid, tags.lower())
             for tag in set(str.split(tags)):
@@ -22,5 +23,10 @@ class RecordStore:
         return float(k) * self.tag2freq.get(tag,0) / self.nr_images
 
     def lookup(self, photoid):
-        return self.mapping[photoid]
-        
+        return self.mapping.get(photoid, (None, None))
+
+
+if __name__ == '__main__':
+    tagfile = 'id.userid.lemmtags.txt'
+    store = RecordStore(tagfile)
+
