@@ -6,3 +6,6 @@ A tag relevance learning software for social image tagging and retrieval. It imp
 ## Prerequisite
 
 + [simpleknn] (https://github.com/li-xirong/simpleknn) for `k` nearest neighbor search
+
+## Datasets
++ [800k Flickr images + NUS-WIDE](http://www.mmc.ruc.edu.cn/tagrel/fusion.html): metadata and precomputed global, local, and CNN features
