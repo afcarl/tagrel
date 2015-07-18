@@ -3,13 +3,13 @@ import sys, os, time
 from optparse import OptionParser
 
 from util import checkToSkip,niceNumber,printStatus,makedirsforfile,readImageSet
-from common import ROOT_PATH, FEATURE_TO_DIM
+from common import ROOT_PATH
 from tagrel import TagrelLearner
 from textstore import RecordStore
 from simpleknn.bigfile import BigFile
 
 
-INFO = 'tagrel.dotagrel'
+INFO = __file__
 
 
 def process(options, trainCollection, feature, testCollection):
@@ -24,8 +24,6 @@ def process(options, trainCollection, feature, testCollection):
     job = options.job
     blocksize = options.blocksize
 
-    dim = FEATURE_TO_DIM[feature]
-    
     if options.testset is None:
         testset = testCollection
     
@@ -57,8 +55,8 @@ def process(options, trainCollection, feature, testCollection):
     test_imset = readImageSet(testCollection, testset, rootpath)
     test_imset = [x for x in test_imset if x not in doneset]
     test_imset = [test_imset[i] for i in range(len(test_imset)) if (i%numjobs+1) == job]
-    test_featuredir = os.path.join(rootpath, testCollection, 'FeatureData', feature)
-    test_featurefile = BigFile(test_featuredir, dim)
+    test_feat_dir = os.path.join(rootpath, testCollection, 'FeatureData', feature)
+    test_feat_file = BigFile(test_feat_dir)
 
    
     learner = TagrelLearner(trainCollection, feature, distance, tpp=tpp, rootpath=rootpath)
@@ -81,7 +79,7 @@ def process(options, trainCollection, feature, testCollection):
         printStatus(INFO, 'processing images from %d to %d' % (start, end-1))
 
         s_time = time.time()
-        renamed, vectors = test_featurefile.read(test_imset[start:end])
+        renamed, vectors = test_feat_file.read(test_imset[start:end])
         read_time += time.time() - s_time
         nr_images = len(renamed)
         #assert(len(test_imset[start:end]) == nr_images) # some images may have no visual features available

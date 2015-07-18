@@ -1,7 +1,7 @@
 
 import sys, os, time
 
-from common import ROOT_PATH, FEATURE_TO_DIM
+from common import ROOT_PATH
 from util import printStatus
 from textstore import RecordStore
 from simpleknn import simpleknn
@@ -14,10 +14,12 @@ class TagrelLearner:
     
     # tpp (tag preprocessing) has to be chosen from {'raw', 'stem', 'lemm'}
     def __init__(self, collection, feature, distance, tpp='lemm', rootpath=ROOT_PATH):
-        id_file = os.path.join(rootpath, collection, "FeatureData", feature, "id.txt")
-        feature_file = os.path.join(rootpath, collection, "FeatureData", feature, "feature.bin")
-        nr_of_images = len(open(id_file).readline().strip().split())
-        self.searcher = simpleknn.load_model(feature_file, FEATURE_TO_DIM[feature], nr_of_images, id_file)
+        feat_dir = os.path.join(rootpath, collection, "FeatureData", feature)
+        id_file = os.path.join(feat_dir, "id.txt")
+        feat_file = os.path.join(feat_dir, "feature.bin")
+        nr_of_images, ndims = map(int, open(os.path.join(feat_dir,'shape.txt')).readline().split())
+
+        self.searcher = simpleknn.load_model(feat_file, ndims, nr_of_images, id_file)
         self.searcher.set_distance(distance)
 
         tagfile = os.path.join(rootpath, collection, "TextData", "id.userid.%stags.txt" % tpp)
